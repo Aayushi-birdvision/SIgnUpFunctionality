@@ -1,10 +1,9 @@
 import React from 'react'
-import   "./login.css";
+import "./login.css";
 
 const Login = () => {
   return (
-   <>
-    <div className="container">
+   <div className="container">
       <h1>LOGIN</h1>
       <form action=" ">
         <div className='email'>
@@ -18,7 +17,7 @@ const Login = () => {
         <button type="submit" className="signup">Sign up</button>
       </form>
     </div>
-   </>
   );
 }
+
 export default Login ;
