@@ -5,6 +5,7 @@ import Login from "./component/Login";
 import Home from "./component/Home";
 import Navbar from "./component/Navbar";
 import DynamicTable from "./component/DynamicTable";
+import UserDetail from "./component/User";
 
 function App() {
   return(
@@ -14,7 +15,8 @@ function App() {
         <Route path ="/Home" element={<Home/>}/>  
         <Route  path="/Signup"  element={<Signup  />}/>
         <Route path ='/Login' element={<Login/>}/>
-        <Route path ='/DynamicTable' element={<DynamicTable/>}/>         
+        <Route path ='/DynamicTable' element={<DynamicTable/>}/>  
+        <Route path ='/User' element={<UserDetail/>}/>
       </Routes>   
     </BrowserRouter>  
   );
