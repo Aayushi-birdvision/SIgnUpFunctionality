@@ -1,19 +1,33 @@
 
-import React, { Component } from 'react';
+import React, { useState , Component } from 'react';
 import axios from 'axios';
 import "./users.css"
 
 export default class Users extends React.Component {
   state = {
-    users: []
+    const: [loading, setLoading]=useState(true);
+    const: [userData,setUserData]=useState(null);
   }
+  mount = async () => {
+    try{
+    let res = await axios
+    .get(`https://jsonplaceholder.typicode.com/users`)
+    const users = res.data;
+    this.setState({ users });
+    setUserData(res.data)
+    setLoading(false);
+  }
+  catch(e){
+    console.log(e)
+  }}
   componentDidMount() {
-    axios.get(`https://jsonplaceholder.typicode.com/users`)
-      .then(res => {
-        const users = res.data;
-        console.log('users');
-        this.setState({ users });
-      })
+    this.mount();
+  }
+  useEffect(  ()=> {
+   mount()
+  },[]
+  )
+    return <div className="table">Loading...</div>;
   }
   render() {
     return (
@@ -57,9 +71,9 @@ export default class Users extends React.Component {
               </tr>
             </>
           )
-        }
-        </tbody>
+        }</tbody>
       </table>
-    )
+    );
   }
+
 }
