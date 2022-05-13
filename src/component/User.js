@@ -15,6 +15,7 @@ export default class Users extends React.Component {
     let res = await axios
       .get(`https://jsonplaceholder.typicode.com/users`)
     const users = res.data;
+    this.setState({ users });
     this.setState({ loading: false });
   }
   componentDidMount() {
@@ -22,8 +23,13 @@ export default class Users extends React.Component {
   }
   render() {
     if (this.state.loading) {
-      return (<h1>"Loading"</h1>)
-    } else {
+      return (<h1>"Data is Loading"</h1>)
+    }
+    else if (this.state.users.length === 0) {
+      return (<h1>"No records to display"</h1>
+      )
+    }
+    else {
       return (
         <table className="table">
           <thead>
@@ -47,30 +53,29 @@ export default class Users extends React.Component {
           <tbody>
             {
               this.state.users.map(
-               user => <>
-                <tr key={user.id}>
-                  <td>{user.id}</td>
-                  <td>{user.name}</td>
-                  <td>{user.username}</td>
-                  <td>{user.address.street}</td>
-                  <td>{user.address.suite}</td>
-                  <td>{user.address.city}</td>
-                  <td>{user.address.zipcode}</td>
-                  <td>{user.address.geo.lat}</td>
-                  <td>{user.address.geo.lng}</td>
-                  <td>{user.phone}</td>
-                  <td>{user.website}</td>
-                  <td>{user.company.name}</td>
-                  <td>{user.company.catchPhrase}</td>
-                  <td>{user.company.bs}</td>
-                </tr>
-               </>
+                user => <>
+                  <tr key={user.id}>
+                    <td>{user.id}</td>
+                    <td>{user.name}</td>
+                    <td>{user.username}</td>
+                    <td>{user.address.street}</td>
+                    <td>{user.address.suite}</td>
+                    <td>{user.address.city}</td>
+                    <td>{user.address.zipcode}</td>
+                    <td>{user.address.geo.lat}</td>
+                    <td>{user.address.geo.lng}</td>
+                    <td>{user.phone}</td>
+                    <td>{user.website}</td>
+                    <td>{user.company.name}</td>
+                    <td>{user.company.catchPhrase}</td>
+                    <td>{user.company.bs}</td>
+                  </tr>
+                </>
               )
             }
           </tbody>
         </table>
-      )
+      );
     }
-
   }
 }
