@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Component } from 'react';
 import axios from 'axios';
 import "./users.css";
-import dialog from '@mui/material/Dialog';
+import MyDailog from './MyDailog';
 
 
 export default class Users extends React.Component {
@@ -10,26 +10,23 @@ export default class Users extends React.Component {
     this.state = {
       users: [],
       loading: true,
+      open: false,
     }
   }
-
   mount = async () => {
     let res = await axios
       .get(`https://jsonplaceholder.typicode.com/users`)
     const users = res.data;
     this.setState({ users });
     this.setState({ loading: false });
-
-  }
+  };
   componentDidMount() {
     this.mount();
-    <dialog />
   }
-   myFunction(x) {
-    alert("Row index is: " + x.rowIndex);
+  myFunction(user) {
+  
+    this.setState({ open: true });
   }
-
-
   render() {
     if (this.state.loading) {
       return (<h1>"Data is Loading"</h1>)
@@ -37,13 +34,17 @@ export default class Users extends React.Component {
     else if (this.state.users.length === 0) {
       return (<h1>"No records to display"</h1>
       )
-
+    }
+    else if (this.state.open) {
+      return (
+        <MyDailog />
+      )
     }
     else {
       return (
-        <table className="table">
+        <table className="table" id="my-table">
           <thead>
-            <tr onclick="myFunction(this)">
+            <tr>
               <td><a>ID</a></td>
               <td>NAME</td>
               <td>USERNAME</td>
@@ -64,8 +65,8 @@ export default class Users extends React.Component {
             {
               this.state.users.map(
                 user => <>
-                  <tr onclick="myFunction(this)"
-                   key={user.id}
+                  <tr onClick={() => this.myFunction(user)}
+                    key={user.id}
                   >
                     <td>{user.id}</td>
                     <td>{user.name}</td>
@@ -86,10 +87,8 @@ export default class Users extends React.Component {
               )
             }
           </tbody>
-        </table>
+        </table >
       );
     }
-    
   }
 }
-
