@@ -24,7 +24,7 @@ export default class Users extends React.Component {
     this.mount();
   }
   myFunction(user) {
-  
+
     this.setState({ open: true });
   }
   render() {
