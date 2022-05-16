@@ -44,7 +44,7 @@ export default class Users extends React.Component {
         <table className="table">
           <thead>
             <tr onclick="myFunction(this)">
-              <td><a>ID</a></td>
+              <td>ID</td>
               <td>NAME</td>
               <td>USERNAME</td>
               <td>STREET</td>
