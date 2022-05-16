@@ -1,7 +1,8 @@
-
-import React, { Component } from 'react';
+import React, { useState, useEffect, Component } from 'react';
 import axios from 'axios';
-import "./users.css"
+import "./users.css";
+import dialog from '@mui/material/Dialog';
+
 
 export default class Users extends React.Component {
   constructor() {
@@ -11,16 +12,24 @@ export default class Users extends React.Component {
       loading: true,
     }
   }
+
   mount = async () => {
     let res = await axios
       .get(`https://jsonplaceholder.typicode.com/users`)
     const users = res.data;
     this.setState({ users });
     this.setState({ loading: false });
+
   }
   componentDidMount() {
     this.mount();
+    <dialog />
   }
+   myFunction(x) {
+    alert("Row index is: " + x.rowIndex);
+  }
+
+
   render() {
     if (this.state.loading) {
       return (<h1>"Data is Loading"</h1>)
@@ -28,13 +37,14 @@ export default class Users extends React.Component {
     else if (this.state.users.length === 0) {
       return (<h1>"No records to display"</h1>
       )
+
     }
     else {
       return (
         <table className="table">
           <thead>
-            <tr>
-              <td>ID</td>
+            <tr onclick="myFunction(this)">
+              <td><a>ID</a></td>
               <td>NAME</td>
               <td>USERNAME</td>
               <td>STREET</td>
@@ -54,7 +64,9 @@ export default class Users extends React.Component {
             {
               this.state.users.map(
                 user => <>
-                  <tr key={user.id}>
+                  <tr onclick="myFunction(this)"
+                   key={user.id}
+                  >
                     <td>{user.id}</td>
                     <td>{user.name}</td>
                     <td>{user.username}</td>
@@ -77,5 +89,7 @@ export default class Users extends React.Component {
         </table>
       );
     }
+    
   }
 }
+
