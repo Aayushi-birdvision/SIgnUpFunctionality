@@ -9,7 +9,7 @@ import UserDetail from "./component/User";
 
 function App() {
   return(
-    <BrowserRouter>
+    <BrowserRouter> 
       <Navbar />
       <Routes>
         <Route path ="/Home" element={<Home/>}/>  

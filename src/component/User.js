@@ -1,10 +1,9 @@
-import React, { useState, useEffect, Component } from 'react';
+import React, {  Component } from 'react';
 import axios from 'axios';
 import "./users.css";
 import MyDailog from './MyDailog';
 
-
-export default class Users extends React.Component {
+export default class Users extends Component {
   constructor() {
     super();
     this.state = {
@@ -13,21 +12,50 @@ export default class Users extends React.Component {
       open: false,
     }
   }
-  mount = async () => {
+  getData = async () => {
+    try{
     let res = await axios
       .get(`https://jsonplaceholder.typicode.com/users`)
     const users = res.data;
     this.setState({ users });
     this.setState({ loading: false });
+    }
+    catch(error)
+    {
+      console.log(error);
+    }
   };
   componentDidMount() {
-    this.mount();
+    this.getData();
   }
   myFunction(user) {
-
+    this.setState({ user});
     this.setState({ open: true });
   }
-  render() {
+  showData =()=>{
+     return  this.state.users.map(user =>{
+     return (
+          <tr onClick={() => {this.myFunction(user)}}
+            key={user.id} >
+            <td>{user.id}</td>
+            <td>{user.name}</td>
+            <td>{user.username}</td>
+            <td>{user.address.street}</td>
+            <td>{user.address.suite}</td>
+            <td>{user.address.city}</td>
+            <td>{user.address.zipcode}</td>
+            <td>{user.address.geo.lat}</td>
+            <td>{user.address.geo.lng}</td>
+            <td>{user.phone}</td>
+            <td>{user.website}</td>
+            <td>{user.company.name}</td>
+            <td>{user.company.catchPhrase}</td>
+            <td>{user.company.bs}</td>
+          </tr>
+       )
+      });
+    }
+  render(){
     if (this.state.loading) {
       return (<h1>"Data is Loading"</h1>)
     }
@@ -62,33 +90,10 @@ export default class Users extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {
-              this.state.users.map(
-                user => <>
-                  <tr onClick={() => this.myFunction(user)}
-                    key={user.id}
-                  >
-                    <td>{user.id}</td>
-                    <td>{user.name}</td>
-                    <td>{user.username}</td>
-                    <td>{user.address.street}</td>
-                    <td>{user.address.suite}</td>
-                    <td>{user.address.city}</td>
-                    <td>{user.address.zipcode}</td>
-                    <td>{user.address.geo.lat}</td>
-                    <td>{user.address.geo.lng}</td>
-                    <td>{user.phone}</td>
-                    <td>{user.website}</td>
-                    <td>{user.company.name}</td>
-                    <td>{user.company.catchPhrase}</td>
-                    <td>{user.company.bs}</td>
-                  </tr>
-                </>
-              )
-            }
-          </tbody>
+            {this.showData()}
+           </tbody>
         </table >
-      );
+     )
     }
   }
 }
