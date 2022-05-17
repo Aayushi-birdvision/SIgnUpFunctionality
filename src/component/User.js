@@ -13,30 +13,25 @@ export default class Users extends Component {
     }
   }
   getData = async () => {
-    try{
     let res = await axios
       .get(`https://jsonplaceholder.typicode.com/users`)
     const users = res.data;
     this.setState({ users });
     this.setState({ loading: false });
-    }
-    catch(error)
-    {
-      console.log(error);
-    }
   };
   componentDidMount() {
     this.getData();
   }
   myFunction(user) {
     this.setState({ user});
-    this.setState({ open: true });
+    this.setState({ open: false });
   }
   showData =()=>{
-     return  this.state.users.map(user =>{
+    return this.state.users.map(user =>{
      return (
           <tr onClick={() => {this.myFunction(user)}}
-            key={user.id} >
+            key={user.id}
+          >
             <td>{user.id}</td>
             <td>{user.name}</td>
             <td>{user.username}</td>
@@ -52,10 +47,11 @@ export default class Users extends Component {
             <td>{user.company.catchPhrase}</td>
             <td>{user.company.bs}</td>
           </tr>
-       )
+        )
       });
     }
-  render(){
+     render(){
+    
     if (this.state.loading) {
       return (<h1>"Data is Loading"</h1>)
     }
@@ -63,13 +59,9 @@ export default class Users extends Component {
       return (<h1>"No records to display"</h1>
       )
     }
-    else if (this.state.open) {
-      return (
-        <MyDailog />
-      )
-    }
     else {
-      return (
+      return (<>
+        
         <table className="table" id="my-table">
           <thead>
             <tr>
@@ -91,9 +83,10 @@ export default class Users extends Component {
           </thead>
           <tbody>
             {this.showData()}
-           </tbody>
+           </tbody>      
         </table >
-     )
-    }
+        <MyDailog open ={this.setState({open:true})} /> 
+        </> )
+    }  
   }
 }
