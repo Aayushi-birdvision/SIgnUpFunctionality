@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import "./signup.css"
 const Forms = (props) => {
   return (<>
-    <div className="sections"> 
+    <div className="sections">
       <form onSubmit={props.handleSubmit}>
         <h1>Sign up</h1>
         <div className="divider"></div>
@@ -33,7 +33,7 @@ const Forms = (props) => {
               {props.formErrors.email}
             </p>
           </div>
-          
+
           <div className="field">
             <label>Password</label>
             <input
@@ -62,7 +62,7 @@ const Forms = (props) => {
         </div>
       </form>
     </div>
- </> )
+  </>)
 }
 
 export default Forms;
