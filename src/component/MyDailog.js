@@ -59,7 +59,6 @@ export default function MyDailog(props) {
     setUser(props.data);
   }, [props.data])
 
-  console.log(props);
   return (
     <div>
       <BootstrapDialog
@@ -136,8 +135,8 @@ export default function MyDailog(props) {
             />}
             {user.address && <TextField
               id="outlined-name"
-              label="NAME"
-              value={props.data.name}
+              label="Company NAME"
+              value={user.company.name}
             />}
             {user.address && <TextField
               id="outlined-name"

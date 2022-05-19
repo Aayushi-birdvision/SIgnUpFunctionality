@@ -11,13 +11,9 @@ export default class User extends Component {
     data: [],
   }
   getData = async () => {
-    // try {
-      const res = await axios.get('https://jsonplaceholder.typicode.com/users');
-      const users = res.data;
-      this.setState({ users, loading: false, open:false });
-    // } catch (err) {
-    //   console.error(err);
-    // }
+    const res = await axios.get('https://jsonplaceholder.typicode.com/users');
+    const users = res.data;
+    this.setState({ users, loading: false, open: false });
   };
   componentDidMount() {
     this.getData();
@@ -25,12 +21,10 @@ export default class User extends Component {
   handleClick(user) {
     this.setState({ data: user, open: true })
   }
- handleClose =() => {
-     this.setState({open : false})
+  handleClose = () => {
+    this.setState({ open: false })
 
   }
-    
-  
   showData = () => {
     return this.state.users.map(user => {
       return (
