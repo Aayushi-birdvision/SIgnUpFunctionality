@@ -10,7 +10,7 @@ import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-// import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from '@mui/icons-material/Close';
 
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -40,7 +40,7 @@ const BootstrapDialogTitle = (props) => {
             color: (theme) => theme.palette.grey[500],
           }}
         >
-          {/* <CloseIcon /> */}
+          <CloseIcon />
         </IconButton>
       ) : null}
     </DialogTitle>
@@ -53,25 +53,21 @@ BootstrapDialogTitle.propTypes = {
 };
 
 export default function MyDailog(props) {
+  const [user, setUser] = React.useState({ ...props.data });
 
-  const [open, setOpen] = React.useState(false);
+  React.useEffect(() => {
+    setUser(props.data);
+  }, [props.data])
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-
+  console.log(props);
   return (
     <div>
       <BootstrapDialog
-        onClose={handleClose}
         aria-labelledby="customized-dialog-title"
+        onClose={props.handleClose}
         open={props.open}
       >
-        <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
+        <BootstrapDialogTitle id="customized-dialog-title" onClose={props.handleClose}>
           User Information
         </BootstrapDialogTitle>
         <DialogContent dividers>
@@ -98,66 +94,66 @@ export default function MyDailog(props) {
               label="USER-NAME"
               value={props.data.username}
             />
-            <TextField
+            {user.address && <TextField
               id="outlined-name"
               label="STREET"
-              value={props.data.address.street}
-            />
-            <TextField
+              value={user.address.street}
+            />}
+            {user.address && <TextField
               id="outlined-name"
               label="SUITE"
-              value={props.data.address.suite}
-            />
-            <TextField
+              value={user.address.suite}
+            />}
+            {user.address && <TextField
               id="outlined-name"
               label="CITY"
-              value={props.data.address.city}
-            />
-            <TextField
+              value={user.address.city}
+            />}
+            {user.address && <TextField
               id="outlined-name"
               label="ZIPCODE"
-              value={props.data.address.zipcode}
-            />
-            <TextField
+              value={user.address.zipcode}
+            />}
+            {user.address && <TextField
               id="outlined-name"
               label="LAT"
-              value={props.data.address.geo.lat}
-            />
-            <TextField
+              value={user.address.geo.lat}
+            />}
+            {user.address && <TextField
               id="outlined-name"
               label="LNG"
-              value={props.data.address.geo.lng}
-            />
-            <TextField
+              value={user.address.geo.lng}
+            />}
+            {user.address && <TextField
               id="outlined-name"
               label="PHONE"
               value={props.data.phone}
-            />
-            <TextField
+            />}
+            {user.address && <TextField
               id="outlined-name"
               label="WEBSITE"
               value={props.data.website}
-            />
-            <TextField
+            />}
+            {user.address && <TextField
               id="outlined-name"
               label="NAME"
               value={props.data.name}
-            />
-            <TextField
+            />}
+            {user.address && <TextField
               id="outlined-name"
               label="CATCHPHRASE"
               value={props.data.company.catchPhrase}
-            />
-            <TextField
+            />}
+            {user.address && <TextField
               id="outlined-name"
               label="BS"
               value={props.data.company.bs}
-            />
+            />}
           </Box>
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handleClose}>
-            Save
+          <Button autoFocus onClick={props.handleClose}>
+            save
           </Button>
         </DialogActions>
       </BootstrapDialog>

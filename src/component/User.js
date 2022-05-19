@@ -11,21 +11,26 @@ export default class User extends Component {
     data: [],
   }
   getData = async () => {
-    try {
+    // try {
       const res = await axios.get('https://jsonplaceholder.typicode.com/users');
       const users = res.data;
-      this.setState({ users, loading: false });
-    } catch (err) {
-      console.error(err);
-    }
+      this.setState({ users, loading: false, open:false });
+    // } catch (err) {
+    //   console.error(err);
+    // }
   };
   componentDidMount() {
     this.getData();
   }
   handleClick(user) {
-    this.setState({ data: user });
-    this.setState({ open: true });
+    this.setState({ data: user, open: true })
   }
+ handleClose =() => {
+     this.setState({open : false})
+
+  }
+    
+  
   showData = () => {
     return this.state.users.map(user => {
       return (
@@ -84,7 +89,7 @@ export default class User extends Component {
               {this.showData()}
             </tbody>
           </table >
-          <MyDailog open={this.state.open} data={this.state.data} />
+          <MyDailog open={this.state.open} data={this.state.data} handleClose={this.handleClose} />
         </div>
       )
     }
